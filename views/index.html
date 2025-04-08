@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moishopshop - Cửa hàng mô hình lớn nhất Việt Nam </title>
+    <style>
+        /* Thêm CSS cơ bản tại đây */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .top-header {
+            background-color: #4a89dc;
+            color: white;
+            text-align: center;
+            padding: 8px 0;
+        }
+        .main-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #4a89dc;
+        }
+        .search-bar input {
+            padding: 8px 15px;
+            width: 300px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .nav-icons a {
+            margin-left: 15px;
+            text-decoration: none;
+            color: #333;
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            background-color: #f8f9fa;
+        }
+        nav ul li a {
+            display: block;
+            padding: 15px 20px;
+            text-decoration: none;
+            color: #333;
+        }
+        nav ul li a:hover {
+            background-color: #e9ecef;
+        }
+        .banner {
+            background-color: #f0f0f0;
+            padding: 40px 0;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .btn {
+            background-color: #4a89dc;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            display: inline-block;
+            text-decoration: none;
+        }
+        .section-title {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .categories, .featured-products, .new-arrivals {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .category {
+            text-align: center;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+        }
+        .product-card {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .product-info {
+            padding: 15px;
+        }
+        .product-title {
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        .price {
+            font-weight: bold;
+            color: #e63946;
+            margin-bottom: 10px;
+        }
+        .discount {
+            text-decoration: line-through;
+            color: #6c757d;
+            font-size: 14px;
+            margin-left: 5px;
+        }
+        .rating {
+            color: #ffc107;
+            margin-bottom: 10px;
+        }
+        .add-to-cart {
+            width: 100%;
+            background-color: #4a89dc;
+            color: white;
+            border: none;
+            padding: 8px 0;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .benefits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+            text-align: center;
+        }
+        .benefit {
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+        }
+        footer {
+            background-color: #343a40;
+            color: white;
+            padding: 40px 0 20px;
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+        .footer-section h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+        .footer-section li {
+            margin-bottom: 8px;
+        }
+        .footer-section a {
+            color: #ddd;
+            text-decoration: none;
+        }
+        .social-links a {
+            margin-right: 15px;
+        }
+        .newsletter input {
+            padding: 8px;
+            width: 100%;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 4px;
+        }
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #495057;
+        }
+        .badge {
+            background-color: #e63946;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 50%;
+            font-size: 12px;
+        }
+        /* Loading spinner */
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border-left-color: #4a89dc;
+            animation: spin 1s ease infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .error-message {
+            color: #e63946;
+            text-align: center;
+            padding: 20px;
+        }
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="top-header">
+            <p>GIẢM GIÁ LỚN - Giảm tới 50% cho đơn hàng trên 500.000đ</p>
+        </div>
+        <div class="container">
+            <div class="main-header">
+                <!-- Thêm phần hiển thị tên người dùng -->
+                <div class="user-info" id="user-info"></div>
+                <div class="logo">Moi Shop</div>
+                <div class="search-bar">
+                    <input type="text" placeholder="Tìm kiếm sản phẩm..." id="search-input">
+                </div>
+                <div class="nav-icons">
+                    <a href="auth.html">Tài khoản</a>
+                    <a href="wishlist.html">Yêu thích</a>
+                    <a href="cart.html">Giỏ hàng <span class="badge" id="cart-badge">0</span></a>
+                </div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Trang chủ</a></li>
+                    <li><a href="#shop">Cửa hàng</a></li>
+                    <li><a href="#new">Sản phẩm mới</a></li>
+                    <li><a href="#sale">Khuyến mãi</a></li>
+                    <li><a href="#blog">Blog</a></li>
+                    <li><a href="#contact">Liên hệ</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Phần còn lại của HTML giữ nguyên -->
+    <section class="banner">
+        <div class="banner-content">
+            <h1>SIÊU SALE THÁNG 4</h1>
+            <p>Giảm giá đến 70% các sản phẩm hot nhất năm 2025</p>
+            <a href="#shop-now" class="btn">Mua ngay</a>
+        </div>
+    </section>
+
+    <div class="container">
+        <h2 class="section-title">Danh mục sản phẩm</h2>
+
+        <h2 class="section-title">Sản phẩm nổi bật</h2>
+        <div id="featured-products" class="featured-products">
+            <div class="spinner"></div>
+        </div>
+
+       
+
+        <div class="benefits">
+            <div class="benefit">
+                <h3>Miễn phí vận chuyển</h3>
+                <p>Cho đơn hàng từ 300.000đ</p>
+            </div>
+            <div class="benefit">
+                <h3>Hỗ trợ 24/7</h3>
+                <p>Liên hệ hỗ trợ bất kỳ lúc nào</p>
+            </div>
+            <div class="benefit">
+                <h3>Đổi trả dễ dàng</h3>
+                <p>Trong vòng 30 ngày</p>
+            </div>
+            <div class="benefit">
+                <h3>Thanh toán an toàn</h3>
+                <p>Bảo mật thông tin</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Về ShopOnline</h3>
+                    <p>Moi Shop là cửa hàng chuyên cung cấp mô hình và buddy từ các tựa game tốt nhất Việt Nam </p>
+                    <div class="social-links">
+                        <a href="#facebook">Facebook</a>
+                        <a href="#instagram">Instagram</a>
+                        <a href="#twitter">Twitter</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Thông tin liên hệ</h3>
+                    <p>Địa chỉ: 123 Đường ABC, Quận 1, TP.HCM</p>
+                    <p>Email: hotro@shoponline.com</p>
+                    <p>Hotline: 1900 1234 567</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Liên kết hữu ích</h3>
+                    <ul>
+                        <li><a href="#about">Về chúng tôi</a></li>
+                        <li><a href="#privacy">Chính sách bảo mật</a></li>
+                        <li><a href="#terms">Điều khoản sử dụng</a></li>
+                        <li><a href="#faq">Câu hỏi thường gặp</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Đăng ký nhận tin</h3>
+                    <p>Nhận thông tin khuyến mãi mới nhất qua email.</p>
+                    <form class="newsletter">
+                        <input type="email" placeholder="Nhập email của bạn">
+                        <button type="submit" class="btn">Đăng ký</button>
+                    </form>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>© 2025 ShopOnline. Tất cả quyền được bảo lưu.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // API URL
+const API_URL = 'http://localhost:5000';
+
+function createProductHTML(product) {
+    const rating = product.rating || 4;
+    const stars = '★'.repeat(rating) + '☆'.repeat(5 - rating);
+    const discountHTML = product.oldPrice ? 
+        `<span class="discount">${formatPrice(product.oldPrice)}</span>` : '';
+    const imageUrl = product.images && product.images.length > 0 && product.images[0].url ? 
+        product.images[0].url : '/api/placeholder/250/200';
+
+    return `
+        <div class="product-card" data-id="${product._id}">
+            <img src="${imageUrl}" alt="${product.name}" class="product-image">
+            <div class="product-info">
+                <h3 class="product-title">${product.name}</h3>
+                <div class="price">${formatPrice(product.price)} ${discountHTML}</div>
+                <div class="rating">${stars}</div>
+                <div class="product-actions">
+                    <button class="add-to-cart" data-id="${product._id}">🛒 Thêm vào giỏ</button>
+                    <button class="add-to-wishlist" data-id="${product._id}">❤️</button>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+
+async function addToWishlist(productId) {
+    const user = JSON.parse(localStorage.getItem('user'));
+    const token = localStorage.getItem('token');
+
+    if (!user || !token) {
+        alert('Vui lòng đăng nhập để thêm vào danh sách yêu thích!');
+        window.location.href = 'auth.html';
+        return;
+    }
+
+    try {
+        const response = await fetch(`${API_URL}/api/wishlist`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                user: user.id,
+                product: productId
+            })
+        });
+
+        if (!response.ok) throw new Error('Lỗi khi thêm vào danh sách yêu thích');
+
+        alert('Đã thêm vào danh sách yêu thích!');
+    } catch (error) {
+        console.error('Lỗi khi thêm vào wishlist:', error);
+        alert('Không thể thêm vào yêu thích!');
+    }
+}
+
+
+function attachAddToWishlistListeners() {
+    const wishlistButtons = document.querySelectorAll('.add-to-wishlist');
+    wishlistButtons.forEach(button => {
+        button.addEventListener('click', async function () {
+            const productId = this.getAttribute('data-id');
+            await addToWishlist(productId);
+        });
+    });
+}
+
+
+// Hàm định dạng giá tiền
+function formatPrice(price) {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + 'đ';
+}
+
+// Hàm lấy danh sách sản phẩm từ API
+async function fetchProducts() {
+    try {
+        const response = await fetch(`${API_URL}/api/products`);
+        if (!response.ok) throw new Error('Không thể kết nối đến máy chủ');
+        const products = await response.json();
+        return products;
+    } catch (error) {
+        console.error('Lỗi khi lấy sản phẩm:', error);
+        return [];
+    }
+}
+
+// Hàm hiển thị sản phẩm nổi bật
+async function displayFeaturedProducts() {
+    const featuredProductsElement = document.getElementById('featured-products');
+    try {
+        const products = await fetchProducts();
+        if (products.length === 0) {
+            featuredProductsElement.innerHTML = '<p class="error-message">Không thể tải sản phẩm</p>';
+            return;
+        }
+        const featuredProducts = products.slice(0, 4);
+        featuredProductsElement.innerHTML = featuredProducts.map(createProductHTML).join('');
+        attachAddToCartListeners();
+        attachAddToWishlistListeners();
+    } catch (error) {
+        console.error('Lỗi khi hiển thị sản phẩm nổi bật:', error);
+        featuredProductsElement.innerHTML = '<p class="error-message">Lỗi khi tải sản phẩm</p>';
+    }
+}
+
+// Hàm hiển thị sản phẩm mới
+async function displayNewArrivals() {
+    const newArrivalsElement = document.getElementById('new-arrivals');
+    try {
+        const products = await fetchProducts();
+        if (products.length === 0) {
+            newArrivalsElement.innerHTML = '<p class="error-message">Không thể tải sản phẩm</p>';
+            return;
+        }
+        const newProducts = products.slice(4, 8);
+        if (newProducts.length === 0) {
+            newArrivalsElement.innerHTML = '<p class="error-message">Không có sản phẩm mới</p>';
+            return;
+        }
+        newArrivalsElement.innerHTML = newProducts.map(createProductHTML).join('');
+        attachAddToCartListeners();
+        attachAddToWishlistListeners();
+    } catch (error) {
+        console.error('Lỗi khi hiển thị sản phẩm mới:', error);
+        newArrivalsElement.innerHTML = '<p class="error-message">Lỗi khi tải sản phẩm</p>';
+    }
+}
+
+// Hàm gắn sự kiện cho các nút thêm vào giỏ
+function attachAddToCartListeners() {
+    const addToCartButtons = document.querySelectorAll('.add-to-cart');
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', async function() {  // Thêm async để xử lý bất đồng bộ
+            const productId = this.getAttribute('data-id');
+            const productCard = this.closest('.product-card');
+            const productName = productCard.querySelector('.product-title').textContent;
+            await addToCart(productId, productName);  // Thêm await để đảm bảo gọi API hoàn tất
+        });
+    });
+}
+
+
+
+async function addToCart(productId, productName) {
+    const user = JSON.parse(localStorage.getItem('user'));
+    const token = localStorage.getItem('token');
+
+    if (!user || !token) {
+        alert('Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng!');
+        window.location.href = 'auth.html';
+        return;
+    }
+
+    try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 5000);
+
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        };
+
+        // ĐÃ BỎ credentials: 'include' vì đã sử dụng token JWT
+        const response = await fetch(`${API_URL}/api/cart`, {
+            method: 'POST',
+            headers: headers,
+            signal: controller.signal,
+            body: JSON.stringify({
+                user: user.id,
+                product: productId,
+                quantity: 1
+            })
+        });
+
+        clearTimeout(timeoutId);
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`HTTP error ${response.status}: ${errorText}`);
+        }
+
+        const contentType = response.headers.get('content-type');
+        if (!contentType || !contentType.includes('application/json')) {
+            const text = await response.text();
+            throw new Error(`Server trả về dữ liệu không phải JSON: ${text.substring(0, 100)}...`);
+        }
+
+        const updatedCart = await response.json();
+        
+        const totalItems = updatedCart.items.reduce((sum, item) => sum + item.quantity, 0);
+        const cartBadge = document.getElementById('cart-badge');
+        if (cartBadge) {
+            cartBadge.textContent = totalItems;
+        }
+
+        alert(`Đã thêm "${productName}" vào giỏ hàng!`);
+    } catch (error) {
+        console.error('Lỗi chi tiết khi thêm vào giỏ hàng:', error);
+        if (error.name === 'AbortError') {
+            alert('Không thể kết nối đến server. Vui lòng kiểm tra lại kết nối!');
+        } else if (error.message.includes('Failed to fetch')) {
+            alert('Không thể kết nối đến server. Có thể do lỗi CORS hoặc server không chạy!');
+        } else {
+            alert(`Có lỗi xảy ra khi thêm sản phẩm: ${error.message}`);
+        }
+    }
+}
+
+// Hàm lấy thông tin giỏ hàng ban đầu
+async function fetchCartCount() {
+    const token = localStorage.getItem('token');
+    if (!token) return;
+
+    try {
+        const response = await fetch(`${API_URL}/api/cart`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        
+        if (response.ok) {
+            const cart = await response.json();
+            const totalItems = cart.items.reduce((sum, item) => sum + item.quantity, 0);
+            const cartBadge = document.getElementById('cart-badge');
+            if (cartBadge) {
+                cartBadge.textContent = totalItems;
+            }
+        }
+    } catch (error) {
+        console.error('Lỗi khi lấy giỏ hàng:', error);
+    }
+}
+
+// Hàm hiển thị thông tin người dùng
+function displayUserInfo() {
+    const userInfoElement = document.getElementById('user-info');
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user && user.name) {
+        userInfoElement.innerHTML = `Xin chào, ${user.name} | <a href="#" id="logout">Đăng xuất</a>`;
+        document.getElementById('logout').addEventListener('click', function(e) {
+            e.preventDefault();
+            localStorage.removeItem('user');
+            localStorage.removeItem('token');
+            window.location.reload();
+        });
+    } else {
+        userInfoElement.innerHTML = '<a href="auth.html">Đăng nhập</a>';
+    }
+}
+
+// Xử lý thanh tìm kiếm
+function setupSearch() {
+    const searchBar = document.getElementById('search-input');
+    searchBar.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            const searchTerm = this.value.trim();
+            if (searchTerm) {
+                alert(`Tìm kiếm sản phẩm: "${searchTerm}"`);
+            }
+        }
+    });
+}
+
+// Khởi tạo trang
+document.addEventListener('DOMContentLoaded', function() {
+    displayUserInfo();
+    displayFeaturedProducts();
+    displayNewArrivals();
+    setupSearch();
+    fetchCartCount();  // Thêm hàm để lấy số lượng giỏ hàng ban đầu
+});
+    </script>
+</body>
+</html>

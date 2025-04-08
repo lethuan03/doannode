@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Panel</title>
+
+  <!-- AdminLTE + Font Awesome -->
+  <link href="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/css/adminlte.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+
+  <!-- JS -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js" defer></script>
+
+  <style>
+    .content-wrapper {
+      padding: 2rem;
+    }
+    .card {
+      text-align: center;
+    }
+    .card .btn {
+      width: 100%;
+      padding: 15px;
+      font-size: 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+    }
+    .card .btn:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+    <!-- Sidebar -->
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+      <a href="#" class="brand-link">
+        <span class="brand-text font-weight-light">Admin Panel</span>
+      </a>
+      <div class="sidebar">
+        <nav class="mt-2">
+          <ul class="nav nav-pills nav-sidebar flex-column" role="menu">
+            <li class="nav-item">
+              <a href="admin.html" class="nav-link active">
+                <i class="nav-icon fas fa-home"></i>
+                <p>Trang chính</p>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </aside>
+
+    <!-- Main content -->
+    <div class="content-wrapper">
+      <div class="container-fluid">
+        <div class="row">
+          <!-- Product -->
+          <div class="col-md-3">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Quản lý sản phẩm</h5>
+                <a href="product.html" class="btn">Vào sản phẩm</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Categories -->
+          <div class="col-md-3">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Quản lý danh mục</h5>
+                <a href="categories.html" class="btn">Vào danh mục</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Coupon -->
+          <div class="col-md-3">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Quản lý mã giảm</h5>
+                <a href="coupon.html" class="btn">Vào mã giảm</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Address -->
+          <div class="col-md-3">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Quản lý địa chỉ</h5>
+                <a href="address.html" class="btn">Vào địa chỉ</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
