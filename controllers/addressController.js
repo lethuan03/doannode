@@ -33,3 +33,23 @@ exports.deleteAddress = async (req, res) => {
         res.status(500).json({ message: "Server error" });
     }
 };
+
+exports.updateAddress = async (req, res) => {
+    try {
+        const { address, city, postalCode, country } = req.body;
+
+        const updated = await Address.findByIdAndUpdate(
+            req.params.id,
+            { address, city, postalCode, country },
+            { new: true } // trả về bản đã cập nhật
+        );
+
+        if (!updated) return res.status(404).json({ message: "Address not found" });
+
+        res.json(updated);
+    } catch (error) {
+        console.error("Error updating address:", error);
+        res.status(500).json({ message: "Server error" });
+    }
+};
+
