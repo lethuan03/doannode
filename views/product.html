@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Management</title>
+    <style>
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        .product-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .product-card {
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Product Management</h1>
+        
+        <!-- Create Product Form -->
+        <div id="create-form">
+            <h2>Create New Product</h2>
+            <form id="productForm">
+                <div class="form-group">
+                    <input type="text" id="name" placeholder="Product Name" required>
+                </div>
+                <div class="form-group">
+                    <textarea id="description" placeholder="Description" required></textarea>
+                </div>
+                <div class="form-group">
+                    <input type="number" id="price" placeholder="Price" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <input type="number" id="stock" placeholder="Stock" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="category" placeholder="Category ID" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="images" placeholder="Image IDs (comma separated)">
+                </div>
+                <button type="submit">Create Product</button>
+            </form>
+        </div>
+
+        <!-- Product List -->
+        <div id="product-list" class="product-list"></div>
+    </div>
+
+    <script>
+        // Assume token is stored in localStorage or fetched from backend
+        async function getToken() {
+            // This should be implemented based on your auth system
+            return localStorage.getItem('token') || await fetchTokenFromBackend();
+        }
+
+        // API base URL - adjust according to your backend
+        const API_BASE_URL = 'http://localhost:5000/api/products';
+
+        // Fetch all products
+        async function fetchProducts() {
+            try {
+                const token = await getToken();
+                const response = await fetch(API_BASE_URL, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                const products = await response.json();
+                displayProducts(products);
+            } catch (error) {
+                console.error('Error fetching products:', error);
+            }
+        }
+
+        // Display products
+        function displayProducts(products) {
+            const productList = document.getElementById('product-list');
+            productList.innerHTML = '';
+            
+            products.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                productCard.innerHTML = `
+                    <h3>${product.name}</h3>
+                    <p>${product.description}</p>
+                    <p>Price: $${product.price}</p>
+                    <p>Stock: ${product.stock}</p>
+                    <p>Category: ${product.category?.name || 'N/A'}</p>
+                    <button onclick="deleteProduct('${product._id}')">Delete</button>
+                    <button onclick="showUpdateForm('${product._id}')">Update</button>
+                `;
+                productList.appendChild(productCard);
+            });
+        }
+
+        // Create product
+        document.getElementById('productForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const productData = {
+                name: document.getElementById('name').value,
+                description: document.getElementById('description').value,
+                price: parseFloat(document.getElementById('price').value),
+                stock: parseInt(document.getElementById('stock').value),
+                category: document.getElementById('category').value,
+                images: document.getElementById('images').value.split(',').map(id => id.trim()).filter(id => id)
+            };
+
+            try {
+                const token = await getToken();
+                const response = await fetch(API_BASE_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(productData)
+                });
+                
+                if (response.ok) {
+                    fetchProducts();
+                    document.getElementById('productForm').reset();
+                }
+            } catch (error) {
+                console.error('Error creating product:', error);
+            }
+        });
+
+        // Delete product
+        async function deleteProduct(id) {
+            try {
+                const token = await getToken();
+                const response = await fetch(`${API_BASE_URL}/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                
+                if (response.ok) {
+                    fetchProducts();
+                }
+            } catch (error) {
+                console.error('Error deleting product:', error);
+            }
+        }
+
+        // Initial fetch
+        fetchProducts();
+    </script>
+</body>
+</html>
